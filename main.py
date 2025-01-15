@@ -169,7 +169,6 @@ class FishSearchCrawler:
     def crawl_page(self):
         pq = PriorityQueue()
         pq.put((0, 0, self.start_url))
-        depth_map = {self.start_url: 0}
         while not pq.empty():
             relevance, depth, current_url = pq.get()
             if current_url in self.visited:
@@ -189,7 +188,6 @@ class FishSearchCrawler:
                     for link in new_links:
                         if link not in self.visited:
                             new_depth = depth + 1
-                            depth_map[link] = new_depth
                             pq.put((-relevance, new_depth, link))
                         
             except Exception as e:
